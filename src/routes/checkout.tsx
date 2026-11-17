@@ -1,7 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { useCart } from "@/lib/cart";
-import { products, egp, WHATSAPP } from "@/lib/products";
+import { egp, WHATSAPP } from "@/lib/catalog";
+import { supabase } from "@/integrations/supabase/client";
 import { Asterisk } from "@/components/Logo";
 
 export const Route = createFileRoute("/checkout")({
@@ -26,14 +27,32 @@ function Checkout() {
   const [f, setF] = useState({ name: "", phone: "", city: "Cairo", address: "", pay: PAY[0] });
   const [done, setDone] = useState<{ no: string; url: string } | null>(null);
 
-  const submit = (e: React.FormEvent) => {
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState("");
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const no = `CB-${Date.now().toString().slice(-6)}`;
-    const items = lines.map((l) => {
-      const p = products.find((x) => x.id === l.id)!;
-      return `• ${p.name} (${l.color}, ${l.size}) x${l.qty} — ${egp(p.price * l.qty)}`;
-    }).join("\n");
-    const msg = `New order ${no}\n\n${items}\n\nTotal: ${egp(total)}\n\nName: ${f.name}\nPhone: ${f.phone}\nCity: ${f.city}\nAddress: ${f.address}\nPayment: ${f.pay}`;
+    setBusy(true); setErr("");
+    const { data: no, error } = await supabase.rpc("place_order", { payload: {
+      name: f.name, phone: f.phone, city: f.city, address: f.address, payment: f.pay,
+      items: lines.map((l) => ({ product_id: l.productId, color: l.color, size: l.size, qty: l.qty })),
+    } });
+    setBusy(false);
+    if (error || !no) { setErr(error?.message ?? "Could not place order"); return; }
+    const origin = window.location.origin;
+    const items = lines.map((l) => `• ${l.name} (${l.color}, ${l.size}) x${l.qty} — ${egp(l.price * l.qty)}
+  ${origin}/product/${l.slug}`).join("
+");
+    const msg = `New order ${no}
+
+${items}
+
+Total: ${egp(total)}
+
+Name: ${f.name}
+Phone: ${f.phone}
+City: ${f.city}
+Address: ${f.address}
+Payment: ${f.pay}`;
     setDone({ no, url: `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}` });
     clear();
   };
@@ -73,7 +92,8 @@ function Checkout() {
           ))}
         </fieldset>
         <div className="flex justify-between border-t border-border pt-4 font-bold"><span>Total</span><span>{egp(total)}</span></div>
-        <button className="w-full bg-foreground py-4 text-sm font-bold uppercase text-background hover:bg-brand">Place order</button>
+        {err && <p className="text-sm text-brand">{err}</p>}
+        <button disabled={busy} className="w-full bg-foreground py-4 text-sm font-bold uppercase text-background hover:bg-brand">{busy ? "Placing…" : "Place order"}</button>
       </form>
     </section>
   );

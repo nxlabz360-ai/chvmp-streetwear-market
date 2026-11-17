@@ -1,7 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Truck, MessageCircle, Banknote, RefreshCw } from "lucide-react";
 import { PhotoSlideshow } from "@/components/PhotoSlideshow";
-import { products } from "@/lib/products";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { productsQuery } from "@/lib/catalog";
 import { ProductCard } from "@/components/ProductCard";
 import { Asterisk } from "@/components/Logo";
 
@@ -16,11 +17,13 @@ export const Route = createFileRoute("/")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
+  loader: ({ context }) => context.queryClient.ensureQueryData(productsQuery),
   component: Index,
 });
 
 function Index() {
-  const best = ["vague-hoodie", "become-tee", "build-jeans", "asterisk-cap"].map((id) => products.find((p) => p.id === id)!);
+  const { data } = useSuspenseQuery(productsQuery);
+  const best = data.slice(0, 4);
   return (
     <>
       <PhotoSlideshow />

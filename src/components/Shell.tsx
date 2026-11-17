@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Logo, Asterisk } from "./Logo";
 import { useCart } from "@/lib/cart";
 import nxLogo from "@/assets/nx-labs-logo.png.asset.json";
-import { products, egp } from "@/lib/products";
+import { egp } from "@/lib/catalog";
 
 export function Header() {
   const { count, setOpen } = useCart();
@@ -56,14 +56,13 @@ export function CartDrawer() {
         <div className="flex-1 overflow-y-auto p-4">
           {lines.length === 0 && <p className="text-sm text-muted-foreground">Your cart is empty.</p>}
           {lines.map((l) => {
-            const p = products.find((x) => x.id === l.id)!;
             return (
               <div key={l.key} className="mb-4 flex gap-3">
-                <img src={p.image} alt={p.name} className="h-24 w-20 shrink-0 bg-muted object-cover" />
+                <img src={l.image} alt={l.name} className="h-24 w-20 shrink-0 bg-muted object-cover" />
                 <div className="min-w-0 flex-1">
-                  <p className="text-sm font-bold uppercase">{p.name}</p>
+                  <p className="text-sm font-bold uppercase">{l.name}</p>
                   <p className="text-xs text-muted-foreground">{l.color} / {l.size}</p>
-                  <p className="mt-1 text-sm">{egp(p.price * l.qty)}</p>
+                  <p className="mt-1 text-sm">{egp(l.price * l.qty)}</p>
                   <div className="mt-2 inline-flex items-center border border-border">
                     <button aria-label="Decrease" className="p-1.5" onClick={() => setQty(l.key, l.qty - 1)}><Minus className="h-3 w-3" /></button>
                     <span className="w-6 text-center text-sm">{l.qty}</span>
@@ -102,7 +101,7 @@ export function Footer() {
         </div>
         <div className="flex items-end md:justify-end"><Asterisk className="h-10 w-10 text-brand" /></div>
       </div>
-      <p className="mx-auto mt-10 max-w-6xl text-xs text-background/40">© 2026 CHVMPBUZZ</p>
+      <div className="mx-auto mt-10 flex max-w-6xl justify-between text-xs text-background/40"><span>© 2026 CHVMPBUZZ</span><Link to="/admin" className="hover:text-brand">Admin login</Link></div>
       <div className="-mx-4 -mb-12 mt-10 flex flex-col items-center gap-2 border-t border-background/10 bg-foreground py-4">
         <span className="text-[10px] uppercase tracking-widest text-background/50">Powered by</span>
         <img src={nxLogo.url} alt="NX Labs" className="h-9 w-auto" />

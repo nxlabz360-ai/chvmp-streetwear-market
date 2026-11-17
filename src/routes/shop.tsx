@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { products } from "@/lib/products";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { productsQuery } from "@/lib/catalog";
 import { ProductCard } from "@/components/ProductCard";
 
 const G = ["all", "men", "women", "new"] as const;
@@ -17,12 +18,15 @@ export const Route = createFileRoute("/shop")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
+  loader: ({ context }) => context.queryClient.ensureQueryData(productsQuery),
   component: Shop,
 });
 
 function Shop() {
   const { g } = Route.useSearch();
-  const list = products.filter((p) => g === "all" || (g === "new" ? p.isNew : p.gender.includes(g)));
+  const { data } = useSuspenseQuery(productsQuery);
+  const sec = g === "men" ? "Men" : g === "women" ? "Women" : "New in";
+  const list = data.filter((p) => g === "all" || p.sections.includes(sec));
   return (
     <section className="mx-auto max-w-6xl px-4 py-10">
       <h1 className="font-display text-5xl font-black uppercase tracking-tighter md:text-7xl">{g === "all" ? "Shop" : g === "new" ? "New in" : g}</h1>
