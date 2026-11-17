@@ -3,6 +3,7 @@ import { Menu, Minus, Plus, Search, ShoppingBag, X } from "lucide-react";
 import { useState } from "react";
 import { Logo, Asterisk } from "./Logo";
 import { useCart } from "@/lib/cart";
+import nxLogo from "@/assets/nx-labs-logo.png.asset.json";
 import { products, egp } from "@/lib/products";
 
 export function Header() {
@@ -102,6 +103,10 @@ export function Footer() {
         <div className="flex items-end md:justify-end"><Asterisk className="h-10 w-10 text-brand" /></div>
       </div>
       <p className="mx-auto mt-10 max-w-6xl text-xs text-background/40">© 2026 CHVMPBUZZ</p>
+      <div className="-mx-4 -mb-12 mt-10 flex flex-col items-center gap-2 border-t border-background/10 bg-foreground py-4">
+        <span className="text-[10px] uppercase tracking-widest text-background/50">Powered by</span>
+        <img src={nxLogo.url} alt="NX Labs" className="h-9 w-auto" />
+      </div>
     </footer>
   );
 }
