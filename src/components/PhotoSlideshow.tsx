@@ -63,7 +63,7 @@ export function PhotoSlideshow() {
         <CarouselContent className="ml-0 cursor-grab active:cursor-grabbing">
           {photos.map((src, i) => (
             <CarouselItem key={src} className="pl-0 md:basis-1/2 lg:basis-1/3" aria-label={`Photo ${i + 1} of 4`}>
-              <img src={src} alt={`CHVMPBUZZ hoodie look ${i + 1}`} className="campaign-photo" draggable={false} loading="lazy" />
+              <img src={src} alt={`CHVMPBUZZ hoodie look ${i + 1}`} className="campaign-photo" draggable={false} />
             </CarouselItem>
           ))}
         </CarouselContent>
