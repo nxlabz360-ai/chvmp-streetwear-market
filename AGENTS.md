@@ -28,3 +28,7 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+<!-- AGENT-MEMORY:BEGIN -->
+- Use the shared Embla carousel and design-system buttons for the homepage photo slideshow so touch, keyboard, and navigation stay consistent; disable autoplay for reduced motion.
+<!-- AGENT-MEMORY:END -->

@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Truck, MessageCircle, Banknote, RefreshCw } from "lucide-react";
-import model from "@/assets/hero-model.png";
+import { PhotoSlideshow } from "@/components/PhotoSlideshow";
 import { products } from "@/lib/products";
 import { ProductCard } from "@/components/ProductCard";
 import { Asterisk } from "@/components/Logo";
@@ -23,21 +23,7 @@ function Index() {
   const best = ["vague-hoodie", "become-tee", "build-jeans", "asterisk-cap"].map((id) => products.find((p) => p.id === id)!);
   return (
     <>
-      <section className="relative overflow-hidden bg-muted">
-        <div className="mx-auto flex max-w-6xl flex-col items-center px-4 pt-8 text-center">
-          <p className="text-xs font-bold uppercase tracking-[0.3em]">Est. 2024 · Cairo</p>
-          <h1 className="mt-4 select-none font-display text-[15vw] font-black uppercase leading-[0.8] tracking-[-0.06em] md:text-[11rem]">CHVMPBUZZ</h1>
-          <img src={model} alt="Model in an oversized black hoodie and baggy jeans" width={768} height={1344}
-            className="relative z-10 -mt-[12vw] h-[62vh] w-auto max-w-none object-contain md:-mt-24 md:h-[72vh]" />
-          <p className="absolute right-4 top-[45%] z-20 hidden max-w-[12rem] text-right text-lg font-semibold italic leading-snug md:block">
-            More than fashion.<br />Vague Vibes Everyday.<span className="mt-3 ml-auto block h-px w-16 bg-foreground" />
-          </p>
-          <div className="absolute inset-x-0 bottom-6 z-20 flex justify-center gap-2 px-4">
-            <Link to="/shop" search={{ g: "all" }} className="bg-foreground px-6 py-3 text-xs font-bold uppercase tracking-wider text-background hover:bg-brand">Shop now</Link>
-            <Link to="/shop" search={{ g: "new" }} className="border border-foreground bg-background px-6 py-3 text-xs font-bold uppercase tracking-wider hover:border-brand hover:text-brand">Explore new in</Link>
-          </div>
-        </div>
-      </section>
+      <PhotoSlideshow />
 
       <section className="grid grid-cols-2 gap-px bg-foreground">
         {(["men", "women"] as const).map((g) => (
