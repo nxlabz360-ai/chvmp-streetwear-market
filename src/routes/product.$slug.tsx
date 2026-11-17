@@ -28,7 +28,7 @@ export const Route = createFileRoute("/product/$slug")({
       <Link to="/shop" search={{ g: "all" }} className="mt-6 inline-block underline">Back to shop</Link>
     </section>
   ),
-  errorComponent: ({ error }) => <p className="px-4 py-20 text-center">{error.message}</p>,
+  errorComponent: ({ error }) => <p className="px-4 py-20 text-center">{error instanceof Error ? error.message : "Unable to load product"}</p>,
 });
 
 function ProductPage() {

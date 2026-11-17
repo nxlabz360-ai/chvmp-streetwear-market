@@ -39,9 +39,7 @@ function Checkout() {
     setBusy(false);
     if (error || !no) { setErr(error?.message ?? "Could not place order"); return; }
     const origin = window.location.origin;
-    const items = lines.map((l) => `• ${l.name} (${l.color}, ${l.size}) x${l.qty} — ${egp(l.price * l.qty)}
-  ${origin}/product/${l.slug}`).join("
-");
+    const items = lines.map((l) => `• ${l.name} (${l.color}, ${l.size}) x${l.qty} — ${egp(l.price * l.qty)}\n  ${origin}/product/${l.slug}`).join("\n");
     const msg = `New order ${no}
 
 ${items}
