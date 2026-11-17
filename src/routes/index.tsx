@@ -15,6 +15,8 @@ export const Route = createFileRoute("/")({
       { property: "og:description", content: "Vague Vibes Everyday. Believe. Build. Become." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:image", content: "https://chvmp-streetwear-market.lovable.app/og-image.jpg" },
+      { name: "twitter:image", content: "https://chvmp-streetwear-market.lovable.app/og-image.jpg" },
     ],
   }),
   loader: ({ context }) => context.queryClient.ensureQueryData(productsQuery),
