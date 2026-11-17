@@ -26,7 +26,7 @@ function Index() {
       <section className="relative overflow-hidden bg-muted">
         <div className="mx-auto flex max-w-6xl flex-col items-center px-4 pt-8 text-center">
           <p className="text-xs font-bold uppercase tracking-[0.3em]">Est. 2024 · Cairo</p>
-          <h1 className="mt-4 select-none font-display text-[16.5vw] font-black uppercase leading-[0.8] tracking-[-0.06em] md:text-[11rem]">CHVMPBUZZ</h1>
+          <h1 className="mt-4 select-none font-display text-[15vw] font-black uppercase leading-[0.8] tracking-[-0.06em] md:text-[11rem]">CHVMPBUZZ</h1>
           <img src={model} alt="Model in an oversized black hoodie and baggy jeans" width={768} height={1344}
             className="relative z-10 -mt-[12vw] h-[62vh] w-auto max-w-none object-contain md:-mt-24 md:h-[72vh]" />
           <p className="absolute right-4 top-[45%] z-20 hidden max-w-[12rem] text-right text-lg font-semibold italic leading-snug md:block">
