@@ -38,6 +38,7 @@ function Shop() {
         ))}
       </div>
       <div className="mt-8 grid grid-cols-2 gap-x-3 gap-y-10 md:grid-cols-4">{list.map((p) => <ProductCard key={p.id} p={p} />)}</div>
+      {list.length === 0 && <p className="py-16 text-center text-sm text-muted-foreground">No products here yet. New drops coming soon.</p>}
     </section>
   );
 }

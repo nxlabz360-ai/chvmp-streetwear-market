@@ -62,6 +62,7 @@ function Index() {
           <Link to="/shop" search={{ g: "all" }} className="text-xs font-bold uppercase underline hover:text-brand">View all</Link>
         </div>
         <div className="grid grid-cols-2 gap-x-3 gap-y-10 md:grid-cols-4">{best.map((p) => <ProductCard key={p.id} p={p} />)}</div>
+        {best.length === 0 && <p className="py-10 text-center text-sm text-muted-foreground">New drops coming soon.</p>}
       </section>
     </>
   );
