@@ -3,7 +3,9 @@ import { Menu, Minus, Plus, Search, ShoppingBag, X } from "lucide-react";
 import { useState } from "react";
 import { Logo, Asterisk } from "./Logo";
 import { useCart } from "@/lib/cart";
-import nxLogo from "@/assets/nx-labs-logo.png.asset.json";
+import nxLogo from "@/assets/nx-labs-logo.png";
+import { useNavigate } from "@tanstack/react-router";
+import { useRef } from "react";
 import { egp } from "@/lib/catalog";
 
 export function Header() {
@@ -27,7 +29,7 @@ export function Header() {
             <button className="md:hidden" aria-label="Menu" onClick={() => setMenu(!menu)}><Menu className="h-5 w-5" /></button>
             <div className="hidden gap-5 md:flex">{links}</div>
           </nav>
-          <Link to="/" aria-label="CHVMPBUZZ home"><Logo /></Link>
+          <LogoLink />
           <div className="flex items-center justify-end gap-4">
             <Link to="/shop" search={{ g: "all" }} aria-label="Search" className="hover:text-brand"><Search className="h-5 w-5" /></Link>
             <button aria-label="Cart" onClick={() => setOpen(true)} className="relative hover:text-brand">
@@ -39,6 +41,22 @@ export function Header() {
         {menu && <div onClick={() => setMenu(false)} className="flex flex-col gap-4 border-t border-border px-4 py-4 text-sm font-bold uppercase md:hidden">{links}</div>}
       </header>
     </>
+  );
+}
+
+function LogoLink() {
+  const navigate = useNavigate();
+  const timer = useRef<number | null>(null);
+  const fired = useRef(false);
+  const start = () => { fired.current = false; timer.current = window.setTimeout(() => { fired.current = true; navigate({ to: "/admin" }); }, 1200); };
+  const cancel = () => { if (timer.current) window.clearTimeout(timer.current); timer.current = null; };
+  return (
+    <Link to="/" aria-label="CHVMPBUZZ home" draggable={false} className="select-none [-webkit-touch-callout:none]"
+      onPointerDown={start} onPointerUp={cancel} onPointerLeave={cancel} onPointerCancel={cancel}
+      onContextMenu={(e) => e.preventDefault()}
+      onClick={(e) => { if (fired.current) { e.preventDefault(); fired.current = false; } }}>
+      <Logo />
+    </Link>
   );
 }
 
@@ -101,10 +119,10 @@ export function Footer() {
         </div>
         <div className="flex items-end md:justify-end"><Asterisk className="h-10 w-10 text-brand" /></div>
       </div>
-      <div className="mx-auto mt-10 flex max-w-6xl justify-between text-xs text-background/40"><span>© 2026 CHVMPBUZZ</span><Link to="/admin" className="hover:text-brand">Admin login</Link></div>
+      <div className="mx-auto mt-10 flex max-w-6xl justify-between text-xs text-background/40"><span>© 2026 CHVMPBUZZ</span><span>Cairo · Giza</span></div>
       <div className="-mx-4 -mb-12 mt-10 flex flex-col items-center gap-2 border-t border-background/10 bg-foreground py-4">
         <span className="text-[10px] uppercase tracking-widest text-background/50">Powered by</span>
-        <img src={nxLogo.url} alt="NX Labs" className="h-9 w-auto" />
+        <img src={nxLogo} alt="NX Labs" className="h-9 w-auto" />
       </div>
     </footer>
   );

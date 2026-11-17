@@ -105,16 +105,12 @@
   --ring: oklch(0 0 0);
 }
 
-.campaign-heading { text-align: center; padding: 24px 16px 20px; }
-.campaign-gallery { position: relative; }
-.campaign-photo { width: 100%; height: clamp(340px, 53svh, 650px); object-fit: contain; }
-.campaign-slogan { position: absolute; right: 6%; top: 42%; text-align: center; font-size: 22px; line-height: 1.3; }
-@media (max-width: 767px) {
-  .campaign-heading { padding: 20px 16px 16px; }
-  .campaign-slogan { position: static; padding: 12px 16px 68px; font-size: 18px; }
-  .campaign-slogan span { display: none; }
-  .campaign-photo { height: clamp(270px, 42svh, 460px); }
-}
+.hero-full { position: relative; width: 100%; height: calc(100svh - 92px); min-height: 420px; overflow: hidden; }
+.hero-full-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+.campaign-gallery { position: relative; overflow: hidden; }
+.campaign-photo { display: block; width: 100%; height: clamp(480px, 85svh, 1100px); object-fit: cover; object-position: center; user-select: none; }
+.campaign-slogan { position: absolute; left: 50%; bottom: 44px; transform: translateX(-50%); text-align: center; font-size: clamp(16px, 2vw, 26px); line-height: 1.3; text-shadow: 0 1px 8px oklch(0 0 0 / 0.6); }
+@media (min-width: 768px) { .campaign-photo { height: clamp(520px, 80svh, 1100px); } }
 
 @layer base {
   * {
