@@ -107,6 +107,12 @@
 
 .hero-full { position: relative; width: 100%; height: calc(100svh - 92px); min-height: 420px; overflow: hidden; }
 .hero-full-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+.hero-full-backdrop { display: none; }
+@media (min-width: 768px) and (min-aspect-ratio: 3/4) {
+  .hero-full { height: calc(100svh - 92px); min-height: 560px; }
+  .hero-full-backdrop { display: block; position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: blur(48px) brightness(0.6) grayscale(1); transform: scale(1.2); }
+  .hero-full-img { object-fit: contain; object-position: center; }
+}
 .campaign-gallery { position: relative; overflow: hidden; }
 .campaign-photo { display: block; width: 100%; height: clamp(480px, 85svh, 1100px); object-fit: cover; object-position: center; user-select: none; }
 .campaign-slogan { position: absolute; left: 50%; bottom: 44px; transform: translateX(-50%); text-align: center; font-size: clamp(16px, 2vw, 26px); line-height: 1.3; text-shadow: 0 1px 8px oklch(0 0 0 / 0.6); }

@@ -31,4 +31,5 @@ use the editor.
 
 <!-- AGENT-MEMORY:BEGIN -->
 - Use the shared Embla carousel and design-system buttons for the homepage photo slideshow so touch, keyboard, and navigation stay consistent; disable autoplay for reduced motion.
+- The homepage hero poster is portrait: on wide screens show it whole (contain) over a blurred copy of itself instead of cropping, so the model is never cut off.
 <!-- AGENT-MEMORY:END -->

@@ -11,6 +11,20 @@ import s4 from "@/assets/slide-4.jpg";
 
 const photos = [s1, s2, s3, s4];
 
+export function CampaignHero() {
+  return (
+    <section className="hero-full bg-campaign text-campaign-foreground" aria-label="CHVMPBUZZ campaign">
+      <h1 className="sr-only">CHVMPBUZZ — Vague Vibes Everyday</h1>
+      <img src={hero} alt="" aria-hidden="true" className="hero-full-backdrop" />
+      <img src={hero} alt="CHVMPBUZZ campaign: model in a hooded outfit, More than fashion" className="hero-full-img" />
+      <div className="absolute inset-x-0 bottom-0 flex flex-wrap items-center justify-center gap-3 px-4 pb-6 md:pb-10">
+        <Button asChild className="h-11 px-6 text-xs font-bold uppercase"><Link to="/shop" search={{ g: "all" }}>Shop now <ArrowRight /></Link></Button>
+        <Button asChild variant="secondary" className="h-11 px-6 text-xs font-bold uppercase"><Link to="/shop" search={{ g: "new" }}>Explore new in</Link></Button>
+      </div>
+    </section>
+  );
+}
+
 export function PhotoSlideshow() {
   const [api, setApi] = useState<CarouselApi>();
   const [selected, setSelected] = useState(0);
@@ -41,35 +55,25 @@ export function PhotoSlideshow() {
   }, [api, interacting, reducedMotion, selected]);
 
   return (
-    <>
-      <section className="hero-full bg-campaign text-campaign-foreground" aria-label="CHVMPBUZZ campaign">
-        <h1 className="sr-only">CHVMPBUZZ — Vague Vibes Everyday</h1>
-        <img src={hero} alt="CHVMPBUZZ campaign: model in a hooded outfit, More than fashion" className="hero-full-img" />
-        <div className="absolute inset-x-0 bottom-0 flex flex-wrap items-center justify-center gap-3 px-4 pb-6">
-          <Button asChild className="h-11 px-6 text-xs font-bold uppercase"><Link to="/shop" search={{ g: "all" }}>Shop now <ArrowRight /></Link></Button>
-          <Button asChild variant="secondary" className="h-11 px-6 text-xs font-bold uppercase"><Link to="/shop" search={{ g: "new" }}>Explore new in</Link></Button>
-        </div>
-      </section>
-      <Carousel
-        setApi={setApi}
-        opts={{ loop: true, duration: reducedMotion ? 0 : 35 }}
-        className="campaign-gallery bg-campaign text-campaign-foreground"
-        aria-label="Collection photos"
-        onPointerDown={() => setInteracting(true)}
-        onPointerUp={() => setInteracting(false)}
-        onPointerCancel={() => setInteracting(false)}
-        onMouseLeave={() => setInteracting(false)}
-      >
-        <CarouselContent className="ml-0 cursor-grab active:cursor-grabbing">
-          {photos.map((src, i) => (
-            <CarouselItem key={src} className="pl-0 md:basis-1/2 lg:basis-1/3" aria-label={`Photo ${i + 1} of 4`}>
-              <img src={src} alt={`CHVMPBUZZ hoodie look ${i + 1}`} className="campaign-photo" draggable={false} />
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <p className="campaign-slogan pointer-events-none font-serif italic">More than fashion.<br />Vague Vibes Everyday.</p>
-        <span className="pointer-events-none absolute bottom-4 right-4 text-xs font-bold tabular-nums">0{selected + 1} <span className="mx-2 text-brand">/</span> 04</span>
-      </Carousel>
-    </>
+    <Carousel
+      setApi={setApi}
+      opts={{ loop: true, duration: reducedMotion ? 0 : 35 }}
+      className="campaign-gallery bg-campaign text-campaign-foreground"
+      aria-label="Collection photos"
+      onPointerDown={() => setInteracting(true)}
+      onPointerUp={() => setInteracting(false)}
+      onPointerCancel={() => setInteracting(false)}
+      onMouseLeave={() => setInteracting(false)}
+    >
+      <CarouselContent className="ml-0 cursor-grab active:cursor-grabbing">
+        {photos.map((src, i) => (
+          <CarouselItem key={src} className="pl-0 md:basis-1/2 lg:basis-1/3" aria-label={`Photo ${i + 1} of 4`}>
+            <img src={src} alt={`CHVMPBUZZ hoodie look ${i + 1}`} className="campaign-photo" draggable={false} />
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+      <p className="campaign-slogan pointer-events-none font-serif italic">More than fashion.<br />Vague Vibes Everyday.</p>
+      <span className="pointer-events-none absolute bottom-4 right-4 text-xs font-bold tabular-nums">0{selected + 1} <span className="mx-2 text-brand">/</span> 04</span>
+    </Carousel>
   );
 }

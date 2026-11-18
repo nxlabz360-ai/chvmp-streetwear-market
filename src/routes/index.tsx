@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Truck, MessageCircle, Banknote, RefreshCw } from "lucide-react";
-import { PhotoSlideshow } from "@/components/PhotoSlideshow";
+import { CampaignHero, PhotoSlideshow } from "@/components/PhotoSlideshow";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { productsQuery } from "@/lib/catalog";
 import { ProductCard } from "@/components/ProductCard";
@@ -15,8 +15,8 @@ export const Route = createFileRoute("/")({
       { property: "og:description", content: "Vague Vibes Everyday. Believe. Build. Become." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { property: "og:image", content: "https://chvmp-streetwear-market.lovable.app/og-image.jpg" },
-      { name: "twitter:image", content: "https://chvmp-streetwear-market.lovable.app/og-image.jpg" },
+      { property: "og:image", content: "https://chvmpbuzz.vercel.app/og-image.jpg" },
+      { name: "twitter:image", content: "https://chvmpbuzz.vercel.app/og-image.jpg" },
     ],
   }),
   loader: ({ context }) => context.queryClient.ensureQueryData(productsQuery),
@@ -28,7 +28,7 @@ function Index() {
   const best = data.slice(0, 4);
   return (
     <>
-      <PhotoSlideshow />
+      <CampaignHero />
 
       <section className="grid grid-cols-2 gap-px bg-foreground">
         {(["men", "women"] as const).map((g) => (
@@ -47,6 +47,8 @@ function Index() {
           </p>
         </div>
       </section>
+
+      <PhotoSlideshow />
 
       <section className="border-y border-border">
         <div className="mx-auto grid max-w-6xl grid-cols-2 md:grid-cols-4">
